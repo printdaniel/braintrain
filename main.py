@@ -58,7 +58,16 @@ class BrainTrain:
         self.num14 = Label(self.frame,font=('arial',15),textvariable=self.n14)
         self.num15 = Label(self.frame,font=('arial',15),textvariable=self.n15)
         self.num16 = Label(self.frame,font=('arial',15),textvariable=self.n16)
-        
+
+
+        self.alert1 = Label(self.frame, text="   ",bg="red")
+        self.alert1.grid(row=2,column=5)
+        self.alert2 = Label(self.frame, text="   ",bg="red")
+        self.alert2.grid(row=3,column=5)
+        self.alert3 = Label(self.frame, text="   ",bg="red")
+        self.alert3.grid(row=4,column=5)
+        self.alert4 = Label(self.frame, text="   ",bg="red")
+        self.alert4.grid(row=5,column=5)
 
         # Grid
         self.num1.grid(row=2,column=0)
@@ -81,10 +90,20 @@ class BrainTrain:
         self.num15.grid(row=5,column=2)
         self.num16.grid(row=5,column=3)
 
-
+        # Responses
         self.respuesta1 = Entry(self.frame, width="5", font=('arial', 15), textvariable=self.r1)
         self.respuesta1.grid(row=2,column=4)
+
+        self.respuesta2 = Entry(self.frame, width="5", font=('arial', 15), textvariable=self.r2)
+        self.respuesta2.grid(row=3,column=4)
+
+        self.respuesta3 = Entry(self.frame, width="5", font=('arial', 15), textvariable=self.r3)
+        self.respuesta3.grid(row=4,column=4)
+
+        self.respuesta4 = Entry(self.frame, width="5", font=('arial', 15), textvariable=self.r4)
+        self.respuesta4.grid(row=5,column=4)
         
+
         com_buton=Button(self.frame1,text="¡Voy a tener suerte!",command=self.num_random,
                          font=('arial',20,BOLD),relief=GROOVE)
         com_buton.grid(row=0,column=0)
@@ -95,34 +114,60 @@ class BrainTrain:
     
 
     def num_random(self):
-        self.n1.set(random.randint(0,100))
-        self.n2.set(random.randint(0,100))
-        self.n3.set(random.randint(0,100))
-        self.n4.set(random.randint(0,100))
-        self.n5.set(random.randint(0,100))
-        self.n6.set(random.randint(0,100))
-        self.n7.set(random.randint(0,100))
-        self.n8.set(random.randint(0,100))
-        self.n9.set(random.randint(0,100))
-        self.n10.set(random.randint(0,100))
-        self.n11.set(random.randint(0,100))
-        self.n12.set(random.randint(0,100))
-        self.n13.set(random.randint(0,100))
-        self.n14.set(random.randint(0,100))
-        self.n15.set(random.randint(0,100))
-        self.n16.set(random.randint(0,100))
+        numeros = [self.n1, self.n2, self.n3, self.n4, self.n5, self.n6, self.n7, self.n8,
+                   self.n9, self.n10, self.n11, self.n12, self.n13, self.n14, self.n15, self.n16]
+
+        for num in numeros:
+            num.set(random.randint(0, 100))
 
     def sumar_numeros(self):
-        n1 = self.n1.get()
-        n2 = self.n2.get()
-        n3 = self.n3.get()
-        n4 = self.n4.get()
-        lista_de_sumas = [n1, n2,n3,n4]
+        n1, n2, n3, n4 = [var.get() for var in (self.n1, self.n2, self.n3, self.n4)]
+        suma_fila_1 = [n1, n2,n3,n4]
 
-        print(sum(map(int,lista_de_sumas)))
-        print(self.r1.get())
+        suma_1 = sum(map(int,suma_fila_1))
+        intento_f1 = self.r1.get()
+
+        if suma_1 == int(intento_f1):
+            self.alert1 = Label(self.frame, text="   ",bg="green")
+            self.alert1.grid(row=2,column=5)
+            print("Ok")
         
-            
+        n5, n6, n7, n8 = [var.get() for var in (self.n5, self.n6, self.n7, self.n8)]
+        suma_fila_2 = [n5, n6,n7,n8]
+
+        suma_2 = sum(map(int,suma_fila_2))
+        intento_f2 = self.r2.get()
+
+        if suma_2 == int(intento_f2):
+            self.alert2 = Label(self.frame, text="   ",bg="green")
+            self.alert2.grid(row=3,column=5)
+            print("Ok")
+        
+        n9, n10, n11, n12 = [var.get() for var in (self.n9, self.n10, self.n11, self.n12)]
+        suma_fila_3 = [n9, n10,n11,n12]
+
+        suma_3 = sum(map(int,suma_fila_3))
+        intento_f3 = self.r3.get()
+
+        if suma_3 == int(intento_f3):
+            self.alert3 = Label(self.frame, text="   ",bg="green")
+            self.alert3.grid(row=4,column=5)
+            print("Ok")
+        
+        n13, n14, n15, n16 = [var.get() for var in (self.n13, self.n14, self.n15, self.n16)]
+        suma_fila_4 = [n13, n14,n15,n16]
+
+        suma_4 = sum(map(int,suma_fila_4))
+        intento_f4 = self.r4.get()
+
+        if suma_4 == int(intento_f4):
+            self.alert4 = Label(self.frame, text="   ",bg="green")
+            self.alert4.grid(row=5,column=5)
+            print("Ok")
+
+        print(suma_1, suma_2, suma_3, suma_4)
+        
+
 if __name__=='__main__':
     window=Tk()
     app=BrainTrain(window)
