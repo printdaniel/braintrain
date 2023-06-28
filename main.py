@@ -34,6 +34,9 @@ class BrainTrain:
         self.n15 = StringVar()
         self.n16 = StringVar()
 
+        self.numeros = [self.n1, self.n2, self.n3, self.n4, self.n5, self.n6, self.n7, self.n8,
+                   self.n9, self.n10, self.n11, self.n12, self.n13, self.n14, self.n15, self.n16]
+
         self.r1 = StringVar()
         self.r2 = StringVar()
         self.r3 = StringVar()
@@ -41,7 +44,8 @@ class BrainTrain:
         
         self.frame1 = LabelFrame(self.root,text="Buena suerte!!!")
         self.frame1.grid(row=3, column=0)
-                
+
+               
         self.num1 = Label(self.frame,font=('arial',15),textvariable=self.n1)
         self.num2 = Label(self.frame,font=('arial',15),textvariable=self.n2)
         self.num3 = Label(self.frame,font=('arial',15),textvariable=self.n3)
@@ -114,60 +118,62 @@ class BrainTrain:
     
 
     def num_random(self):
-        numeros = [self.n1, self.n2, self.n3, self.n4, self.n5, self.n6, self.n7, self.n8,
-                   self.n9, self.n10, self.n11, self.n12, self.n13, self.n14, self.n15, self.n16]
-
-        for num in numeros:
+        for num in self.numeros:
             num.set(random.randint(0, 100))
 
     def sumar_numeros(self):
+        # Sumas fila uno
         n1, n2, n3, n4 = [var.get() for var in (self.n1, self.n2, self.n3, self.n4)]
         suma_fila_1 = [n1, n2,n3,n4]
 
         suma_1 = sum(map(int,suma_fila_1))
         intento_f1 = self.r1.get()
 
-        if suma_1 == int(intento_f1):
-            self.alert1 = Label(self.frame, text="   ",bg="green")
-            self.alert1.grid(row=2,column=5)
-            print("Ok")
-        
+        #  Sumas fila dos
         n5, n6, n7, n8 = [var.get() for var in (self.n5, self.n6, self.n7, self.n8)]
         suma_fila_2 = [n5, n6,n7,n8]
 
         suma_2 = sum(map(int,suma_fila_2))
         intento_f2 = self.r2.get()
 
-        if suma_2 == int(intento_f2):
-            self.alert2 = Label(self.frame, text="   ",bg="green")
-            self.alert2.grid(row=3,column=5)
-            print("Ok")
-        
+        # Sumas fila tres
         n9, n10, n11, n12 = [var.get() for var in (self.n9, self.n10, self.n11, self.n12)]
         suma_fila_3 = [n9, n10,n11,n12]
 
         suma_3 = sum(map(int,suma_fila_3))
         intento_f3 = self.r3.get()
 
-        if suma_3 == int(intento_f3):
-            self.alert3 = Label(self.frame, text="   ",bg="green")
-            self.alert3.grid(row=4,column=5)
-            print("Ok")
-        
         n13, n14, n15, n16 = [var.get() for var in (self.n13, self.n14, self.n15, self.n16)]
         suma_fila_4 = [n13, n14,n15,n16]
 
+        # Sumas fila 4
         suma_4 = sum(map(int,suma_fila_4))
         intento_f4 = self.r4.get()
 
-        if suma_4 == int(intento_f4):
-            self.alert4 = Label(self.frame, text="   ",bg="green")
-            self.alert4.grid(row=5,column=5)
-            print("Ok")
+        print(suma_1, suma_2, suma_3, suma_4)# SACAR ESTO DESPUES
 
-        print(suma_1, suma_2, suma_3, suma_4)
+        print(len(intento_f1))
+
+        try:
+            if suma_1 == int(intento_f1):
+                self.alert1 = Label(self.frame, text="   ",bg="green")
+                self.alert1.grid(row=2,column=5)
+
+            if suma_2 == int(intento_f2):
+                self.alert2 = Label(self.frame, text="   ",bg="green")
+                self.alert2.grid(row=3,column=5)
+            
+            if suma_3 == int(intento_f3):
+                self.alert3 = Label(self.frame, text="   ",bg="green")
+                self.alert3.grid(row=4,column=5)
+            
+            if suma_4 == int(intento_f4):
+                self.alert4 = Label(self.frame, text="   ",bg="green")
+                self.alert4.grid(row=5,column=5)
+        except:
+            print("Sucedio algo malo")
+
         
-
 if __name__=='__main__':
     window=Tk()
     app=BrainTrain(window)
