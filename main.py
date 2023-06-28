@@ -2,6 +2,7 @@ from tkinter import*
 from tkinter.font import BOLD
 import random
 import time
+import sqlite3
 
 class BrainTrain:
     def __init__(self,window):
@@ -9,6 +10,7 @@ class BrainTrain:
         self.root.title("Brain Train")
         self.root.config(bg="#f8e91a")
         self.start_time = None
+        self.crear_bbdd()
         
         # self.imagen=PhotoImage(file="quini.png")
         # self.imgquini=Label(self.root,image=self.imagen)
@@ -110,7 +112,7 @@ class BrainTrain:
         self.respuesta4.grid(row=5,column=4)
         
 
-        com_buton=Button(self.frame1,text="¡Voy a tener suerte!",command=self.num_random,
+        com_buton=Button(self.frame1,text="¡Voy a sumar!",command=self.num_random,
                          font=('arial',20,BOLD),relief=GROOVE)
         com_buton.grid(row=0,column=0)
         
@@ -123,6 +125,23 @@ class BrainTrain:
         self.start_time = time.time()
         for num in self.numeros:
             num.set(random.randint(0, 100))
+
+    def crear_bbdd(self):
+        con = sqlite3.connect("records.db")
+        cur = con.cursor()
+        cur.execute("""CREATE TABLE IF NOT EXISTS registros 
+                    (id INTEGER PRIMARY KEY,
+                     tiempo FLOAT, 
+                     fecha DATE DEFAULT (DATE('now')))""")
+        con.commit()
+        con.close()
+
+    def insertar_datos(self, values):
+        con = sqlite3.connect("records.db")
+        cur = con.cursor()
+        cur.execute("INSERT INTO registros (tiempo) VALUES(?)", (values,))
+        con.commit()
+        con.close()
 
     def sumar_numeros(self):
         # Sumas fila uno
@@ -186,6 +205,7 @@ class BrainTrain:
                 minutes, seconds = divmod(time_enlapsed, 60)
                 print("Tiempo transcurrido: {:.0f} minutos {:.2f} segundos".format(minutes, seconds))
                 tiempo = f'{round(minutes)}.{round(seconds)}'
+                self.insertar_datos(tiempo)
                 self.start_time = None
 
         
