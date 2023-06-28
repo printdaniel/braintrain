@@ -1,5 +1,6 @@
-from tkinter import*
+from tkinter import *
 from tkinter.font import BOLD
+from tkinter import ttk
 import random
 import time
 import sqlite3
@@ -49,7 +50,10 @@ class BrainTrain:
         self.frame1 = LabelFrame(self.root,text="Buena suerte!!!")
         self.frame1.grid(row=3, column=0)
 
-               
+        self.frame2 = LabelFrame(self.root,text="Records!!!")
+        self.frame2.grid(row=4, column=0)
+
+      
         self.num1 = Label(self.frame,font=('arial',15),textvariable=self.n1)
         self.num2 = Label(self.frame,font=('arial',15),textvariable=self.n2)
         self.num3 = Label(self.frame,font=('arial',15),textvariable=self.n3)
@@ -119,14 +123,38 @@ class BrainTrain:
         get_buton=Button(self.frame1,text="Sumas",command=self.sumar_numeros,
                          font=('arial',20,BOLD),relief=GROOVE)
         get_buton.grid(row=2,column=0)
-    
+
+        self.treeview = ttk.Treeview(self.frame2)
+        self.treeview.grid(row=0, column=0)
+        self.treeview['columns'] = ('tiempo', 'fecha')
+        self.treeview.heading('tiempo', text='Tiempo')
+        self.treeview.heading('fecha', text='Fecha')
+        self.mostrar_records()
+
+    def mostrar_records(self):
+        con = sqlite3.connect('records.db')
+        cur = con.cursor()
+        cur.execute("""SELECT tiempo, fecha 
+                    FROM registros
+                    ORDER BY tiempo ASC
+                    LIMIT 8
+                    """)
+        datos = cur.fetchall()
+        con.close()
+        
+        # Insertar datos en el Treeview
+        for dato in datos:
+            self.treeview.insert('', 'end', values=dato)
+        
 
     def num_random(self):
+        # Iniciar tiempo de juego
         self.start_time = time.time()
         for num in self.numeros:
             num.set(random.randint(0, 100))
 
     def crear_bbdd(self):
+        # Crear tabla
         con = sqlite3.connect("records.db")
         cur = con.cursor()
         cur.execute("""CREATE TABLE IF NOT EXISTS registros 
@@ -206,6 +234,7 @@ class BrainTrain:
                 print("Tiempo transcurrido: {:.0f} minutos {:.2f} segundos".format(minutes, seconds))
                 tiempo = f'{round(minutes)}.{round(seconds)}'
                 self.insertar_datos(tiempo)
+                self.mostrar_records()
                 self.start_time = None
 
         
