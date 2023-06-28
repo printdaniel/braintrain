@@ -1,12 +1,14 @@
 from tkinter import*
 from tkinter.font import BOLD
 import random
+import time
 
 class BrainTrain:
     def __init__(self,window):
         self.root=window
         self.root.title("Brain Train")
         self.root.config(bg="#f8e91a")
+        self.start_time = None
         
         # self.imagen=PhotoImage(file="quini.png")
         # self.imgquini=Label(self.root,image=self.imagen)
@@ -118,6 +120,7 @@ class BrainTrain:
     
 
     def num_random(self):
+        self.start_time = time.time()
         for num in self.numeros:
             num.set(random.randint(0, 100))
 
@@ -151,27 +154,39 @@ class BrainTrain:
         intento_f4 = self.r4.get()
 
         print(suma_1, suma_2, suma_3, suma_4)# SACAR ESTO DESPUES
-
-        print(len(intento_f1))
+        condicones = 0
 
         try:
             if suma_1 == int(intento_f1):
+                condicones += 1
                 self.alert1 = Label(self.frame, text="   ",bg="green")
                 self.alert1.grid(row=2,column=5)
 
             if suma_2 == int(intento_f2):
+                condicones += 1
                 self.alert2 = Label(self.frame, text="   ",bg="green")
                 self.alert2.grid(row=3,column=5)
             
             if suma_3 == int(intento_f3):
+                condicones += 1
                 self.alert3 = Label(self.frame, text="   ",bg="green")
                 self.alert3.grid(row=4,column=5)
             
             if suma_4 == int(intento_f4):
+                condicones += 1
                 self.alert4 = Label(self.frame, text="   ",bg="green")
                 self.alert4.grid(row=5,column=5)
+
         except:
-            print("Sucedio algo malo")
+            print("Los campos estan vacíos")
+
+        if condicones == 4:
+            if self.start_time is not None:
+                time_enlapsed = time.time() - self.start_time
+                minutes, seconds = divmod(time_enlapsed, 60)
+                print("Tiempo transcurrido: {:.0f} minutos {:.2f} segundos".format(minutes, seconds))
+                tiempo = f'{round(minutes)}.{round(seconds)}'
+                self.start_time = None
 
         
 if __name__=='__main__':
