@@ -245,12 +245,17 @@ class BrainTrain:
         Returns:
         None
         """
+        # Obtener las sumas de cada fila
         suma_1, suma_2, suma_3, suma_4 = self.obtener_sumas()
 
+        # Obtener cada una de las respuestas del usuario.
         intento_f1 = self.r1.get()
         intento_f2 = self.r2.get()
         intento_f3 = self.r3.get()
         intento_f4 = self.r4.get()
+
+
+        # Bantera, para saber si se logró dar con las 4 sumas.
         condicones = 0
 
         try:
