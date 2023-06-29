@@ -9,7 +9,7 @@ class BrainTrain:
     def __init__(self,window):
         self.root=window
         self.root.title("Brain Train")
-        self.root.config(bg="#f8e91a")
+        self.root.config(bg="#4f4339")
         self.start_time = None
         self.crear_bbdd()
         
@@ -127,6 +127,8 @@ class BrainTrain:
         self.treeview = ttk.Treeview(self.frame2)
         self.treeview.grid(row=0, column=0)
         self.treeview['columns'] = ('tiempo', 'fecha')
+        self.treeview.heading('#0', text='', anchor='center')
+        self.treeview.column('#0', width=0) 
         self.treeview.heading('tiempo', text='Tiempo')
         self.treeview.heading('fecha', text='Fecha')
         self.mostrar_records()
