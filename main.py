@@ -13,15 +13,10 @@ class BrainTrain:
         self.start_time = None
         self.crear_bbdd()
         
-        # self.imagen=PhotoImage(file="quini.png")
-        # self.imgquini=Label(self.root,image=self.imagen)
-        # self.imgquini.grid(row=0,column=0)
-        
         self.frame = LabelFrame(self.root,text="Números para jugar")
         self.frame.grid(row=1, column=0)
 
         # Instancia de variables
-        
         self.n1 = StringVar()
         self.n2 = StringVar()
         self.n3 = StringVar()
@@ -120,7 +115,7 @@ class BrainTrain:
                          font=('arial',20,BOLD),relief=GROOVE)
         com_buton.grid(row=0,column=0)
         
-        get_buton=Button(self.frame1,text="Sumas",command=self.sumar_numeros,
+        get_buton=Button(self.frame1,text="Sumas",command=self.verificar_sumas,
                          font=('arial',20,BOLD),relief=GROOVE)
         get_buton.grid(row=2,column=0)
 
@@ -134,8 +129,18 @@ class BrainTrain:
         self.mostrar_records()
 
     def mostrar_records(self):
+        """ 
+        Muestra los primeros 8 registros de la base de datos en el Treeview.
+        Los registros ser odenan de manera ascendente según el tiempo.
+
+        Parameters:
+            None 
+        Returns:
+            None
+        """
         con = sqlite3.connect('records.db')
         cur = con.cursor()
+        # Selecciona los registros de la base de datos
         cur.execute("""SELECT tiempo, fecha 
                     FROM registros
                     ORDER BY tiempo ASC
@@ -150,13 +155,31 @@ class BrainTrain:
         
 
     def num_random(self):
+        """ 
+        Genera números aleatorios y los asigna a las variables StringVar.
+
+        Parameters:
+            None
+        Returns:
+            None
+        """
         # Iniciar tiempo de juego
         self.start_time = time.time()
+
+        # Generar números aleatorios y asignarlos a las variables StringVar.
         for num in self.numeros:
             num.set(random.randint(0, 100))
 
     def crear_bbdd(self):
-        # Crear tabla
+        """ 
+        Crea una base de datos SQLite y una tabla para almacenar registros.
+        
+        Parameters:
+            None 
+        Returns:
+            None
+        """
+        # Crear tabla en la base de datos
         con = sqlite3.connect("records.db")
         cur = con.cursor()
         cur.execute("""CREATE TABLE IF NOT EXISTS registros 
@@ -167,42 +190,67 @@ class BrainTrain:
         con.close()
 
     def insertar_datos(self, values):
+        """ 
+        Inserta un nuevo registro en la base de datos.
+
+        Parameters:
+            values (float): El valor del tiempo en que se tardó en completar el juego.
+        Retruns:
+            None
+        """
         con = sqlite3.connect("records.db")
         cur = con.cursor()
         cur.execute("INSERT INTO registros (tiempo) VALUES(?)", (values,))
         con.commit()
         con.close()
 
-    def sumar_numeros(self):
+    def obtener_sumas(self):
+        """
+        Obtiene las sumas de las filas y los valores de los intentos de cada fila.
+
+        Returns:
+            tuple: Una tupla con las sumas de las filas y los intentos de cada fila.
+        """
         # Sumas fila uno
         n1, n2, n3, n4 = [var.get() for var in (self.n1, self.n2, self.n3, self.n4)]
         suma_fila_1 = [n1, n2,n3,n4]
 
         suma_1 = sum(map(int,suma_fila_1))
-        intento_f1 = self.r1.get()
 
         #  Sumas fila dos
         n5, n6, n7, n8 = [var.get() for var in (self.n5, self.n6, self.n7, self.n8)]
         suma_fila_2 = [n5, n6,n7,n8]
 
         suma_2 = sum(map(int,suma_fila_2))
-        intento_f2 = self.r2.get()
 
         # Sumas fila tres
         n9, n10, n11, n12 = [var.get() for var in (self.n9, self.n10, self.n11, self.n12)]
         suma_fila_3 = [n9, n10,n11,n12]
 
         suma_3 = sum(map(int,suma_fila_3))
-        intento_f3 = self.r3.get()
 
         n13, n14, n15, n16 = [var.get() for var in (self.n13, self.n14, self.n15, self.n16)]
         suma_fila_4 = [n13, n14,n15,n16]
 
         # Sumas fila 4
         suma_4 = sum(map(int,suma_fila_4))
-        intento_f4 = self.r4.get()
 
-        print(suma_1, suma_2, suma_3, suma_4)# SACAR ESTO DESPUES
+        return suma_1, suma_2, suma_3, suma_4
+
+
+    def verificar_sumas(self):
+        """ 
+        Verifica si las sumas de las filas coinciden con los intentos y realiza las acciones correspondientes.
+
+        Returns:
+        None
+        """
+        suma_1, suma_2, suma_3, suma_4 = self.obtener_sumas()
+
+        intento_f1 = self.r1.get()
+        intento_f2 = self.r2.get()
+        intento_f3 = self.r3.get()
+        intento_f4 = self.r4.get()
         condicones = 0
 
         try:
@@ -233,13 +281,13 @@ class BrainTrain:
             if self.start_time is not None:
                 time_enlapsed = time.time() - self.start_time
                 minutes, seconds = divmod(time_enlapsed, 60)
-                print("Tiempo transcurrido: {:.0f} minutos {:.2f} segundos".format(minutes, seconds))
+                # print("Tiempo transcurrido: {:.0f} minutos {:.2f} segundos".format(minutes, seconds))
                 tiempo = f'{round(minutes)}.{round(seconds)}'
                 self.insertar_datos(tiempo)
                 self.mostrar_records()
                 self.start_time = None
 
-        
+
 if __name__=='__main__':
     window=Tk()
     app=BrainTrain(window)
