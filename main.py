@@ -38,7 +38,6 @@ class BrainTrain:
         self.frame2 = LabelFrame(self.root,text="Records!!!")
         self.frame2.grid(row=4, column=0)
 
-      
         # Labels para los 8 números a sumar
         self.num1 = Label(self.frame,font=('arial',15),textvariable=self.n1)
         self.num2 = Label(self.frame,font=('arial',15),textvariable=self.n2)
@@ -49,8 +48,6 @@ class BrainTrain:
         self.num7 = Label(self.frame,font=('arial',15),textvariable=self.n7)
         self.num8 = Label(self.frame,font=('arial',15),textvariable=self.n7)
         
-
-                
         # Grid
         self.num1.grid(row=2,column=0)
         self.num2.grid(row=2,column=1)
@@ -61,7 +58,6 @@ class BrainTrain:
         self.num6.grid(row=3,column=1)
         self.num7.grid(row=3,column=2)
         self.num8.grid(row=3,column=3)
-        
         
         # Responses
         self.respuesta1 = Entry(self.frame, width="5", font=('arial', 15), textvariable=self.r1)
@@ -96,6 +92,10 @@ class BrainTrain:
         self.alert2 = Label(self.frame, text="   ",bg="red")
         self.alert2.grid(row=3,column=5)
 
+    def limpiar_entrys(self):
+        self.respuesta1.delete(0, END)
+        self.respuesta2.delete(0, END)
+        
     def mostrar_records(self):
         """ 
         Muestra los primeros 8 registros de la base de datos en el Treeview.
@@ -204,7 +204,8 @@ class BrainTrain:
         Returns:
         None
         """
-                # Obtener las sumas de cada fila
+
+        # Obtener las sumas de cada fila
         suma_1, suma_2 = self.obtener_sumas()
         print(suma_1, suma_2)
 
@@ -239,6 +240,7 @@ class BrainTrain:
                 self.insertar_datos(tiempo)
                 self.mostrar_records()
                 self.start_time = None
+                self.limpiar_entrys()
 
 
 if __name__=='__main__':
