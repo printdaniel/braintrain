@@ -4,6 +4,15 @@ from tkinter import ttk
 import random
 import time
 import sqlite3
+import logging
+
+"""
+Logger basic config
+La app es meramente experimental por lo que no es rigurosa en su arquitectura
+"""
+logging.basicConfig(level=logging.DEBUG, 
+                    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+logger = logging.getLogger('BrainTrain')
 
 
 class BrainTrain:
@@ -87,6 +96,7 @@ class BrainTrain:
         self.mostrar_records()
 
         self.red_alerts()
+        logger.info("Init ready")
 
     def red_alerts(self):
         self.alert1 = Label(self.frame, text="   ", bg="red")
@@ -153,6 +163,7 @@ class BrainTrain:
             None
         """
         # Crear tabla en la base de datos
+        logger.info("DB Records sqlite3 creada")
         con = sqlite3.connect("records.db")
         cur = con.cursor()
         cur.execute("""CREATE TABLE IF NOT EXISTS registros 
@@ -190,6 +201,7 @@ class BrainTrain:
         suma_fila_1 = [n1, n2, n3, n4]
 
         suma_1 = sum(map(int, suma_fila_1))
+        logger.info("Suma 1")
 
         #  Sumas fila dos
         n5, n6, n7, n8 = [var.get()
@@ -197,6 +209,7 @@ class BrainTrain:
         suma_fila_2 = [n5, n6, n7, n8]
 
         suma_2 = sum(map(int, suma_fila_2))
+        logger.info("Suma 2")
 
         return suma_1, suma_2
 
@@ -230,7 +243,7 @@ class BrainTrain:
                 self.alert2.grid(row=3, column=5)
 
         except:
-            print("Los campos estan vacíos")
+            logger.warning("Campos vacíos")
 
         if condicones == 2:
             if self.start_time is not None:
