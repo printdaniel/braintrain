@@ -9,6 +9,6 @@ Quiero compartir contigo una de las aplicaciones que me resultó útil en este p
 - :rocket: suma
 - comparación
 - :truck: magia
-:truck: 
+:white_check_mark: (:white_check_mark:) 
 
 [![GitHub](https://i.imgur.com/9I6NRUm.png)](https://github.com/printdaniel/braintrain)
