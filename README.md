@@ -6,7 +6,7 @@ En ese momento, decidí tomar acción y entrenar mi cerebro en esta área para m
 
 Quiero compartir contigo una de las aplicaciones que me resultó útil en este proceso de mejora.
 
-- suma
+- :rocket: suma
 - comparación
 - :truck: magia
 
