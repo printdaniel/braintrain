@@ -8,6 +8,6 @@ Quiero compartir contigo una de las aplicaciones que me resultó útil en este p
 
 - suma
 - comparación
-- magia
+- :truck: magia
 
 [![GitHub](https://i.imgur.com/9I6NRUm.png)](https://github.com/printdaniel/braintrain)
