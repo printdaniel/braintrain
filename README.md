@@ -6,9 +6,8 @@ En ese momento, decidí tomar acción y entrenar mi cerebro en esta área para m
 
 Quiero compartir contigo una de las aplicaciones que me resultó útil en este proceso de mejora.
 
-- :rocket: suma
+- suma
 - comparación
-- :truck: magia
-:white_check_mark: (:white_check_mark:) 
+- magia
 
 [![GitHub](https://i.imgur.com/9I6NRUm.png)](https://github.com/printdaniel/braintrain)
