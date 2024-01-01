@@ -86,6 +86,7 @@ class BrainTrain:
                            font=('arial', 20, BOLD), relief=GROOVE)
         get_buton.grid(row=2, column=0)
 
+        # Treeview Zone
         self.treeview = ttk.Treeview(self.frame2)
         self.treeview.grid(row=0, column=0)
         self.treeview['columns'] = ('tiempo', 'fecha')
