@@ -10,7 +10,7 @@ import logging
 Logger basic config
 La app es meramente experimental por lo que no es rigurosa en su arquitectura
 """
-logging.basicConfig(level=logging.DEBUG, 
+logging.basicConfig(level=logging.DEBUG,
                     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 logger = logging.getLogger('BrainTrain')
 
@@ -18,9 +18,9 @@ logger = logging.getLogger('BrainTrain')
 class BrainTrain:
     def __init__(self, window):
         self.root = window
-        self.root.title("Brain Train")  
-        self.root.config(bg="#4f4339")  
-        self.start_time = None  
+        self.root.title("Brain Train")
+        self.root.config(bg="#4f4339")
+        self.start_time = None
         self.crear_bbdd()
 
         self.frame = LabelFrame(self.root, text="Números para jugar")
@@ -110,19 +110,19 @@ class BrainTrain:
         self.respuesta2.delete(0, END)
 
     def mostrar_records(self):
-        """ 
+        """
         Muestra los primeros 8 registros de la base de datos en el Treeview.
         Los registros ser odenan de manera ascendente según el tiempo.
 
         Parameters:
-            None 
+            None
         Returns:
             None
         """
         con = sqlite3.connect('records.db')
         cur = con.cursor()
         # Selecciona los registros de la base de datos
-        cur.execute("""SELECT tiempo, fecha 
+        cur.execute("""SELECT tiempo, fecha
                     FROM registros
                     ORDER BY tiempo ASC
                     LIMIT 8
@@ -135,7 +135,7 @@ class BrainTrain:
             self.treeview.insert('', 'end', values=dato)
 
     def num_random(self):
-        """ 
+        """
         Genera números aleatorios y los asigna a las variables StringVar.
 
         Parameters:
@@ -155,11 +155,11 @@ class BrainTrain:
             num.set(random.randint(0, 100))
 
     def crear_bbdd(self):
-        """ 
+        """
         Crea una base de datos SQLite y una tabla para almacenar registros.
 
         Parameters:
-            None 
+            None
         Returns:
             None
         """
@@ -167,15 +167,15 @@ class BrainTrain:
         logger.info("DB Records sqlite3 creada")
         con = sqlite3.connect("records.db")
         cur = con.cursor()
-        cur.execute("""CREATE TABLE IF NOT EXISTS registros 
+        cur.execute("""CREATE TABLE IF NOT EXISTS registros
                     (id INTEGER PRIMARY KEY,
-                     tiempo FLOAT, 
+                     tiempo FLOAT,
                      fecha DATE DEFAULT (DATE('now')))""")
         con.commit()
         con.close()
 
     def insertar_datos(self, values):
-        """ 
+        """
         Inserta un nuevo registro en la base de datos.
 
         Parameters:
@@ -215,7 +215,7 @@ class BrainTrain:
         return suma_1, suma_2
 
     def verificar_sumas(self):
-        """ 
+        """
         Verifica si las sumas de las filas coinciden con los intentos y realiza las acciones correspondientes.
 
         Returns:
@@ -257,7 +257,7 @@ class BrainTrain:
                 self.start_time = None
                 self.limpiar_entrys()
 
-
+# TODO: que se guarde únicamente si ambas sumas estan correctas
 if __name__ == '__main__':
     window = Tk()
     app = BrainTrain(window)
