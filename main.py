@@ -1,4 +1,4 @@
-from tkinter import Entry, Tk, LabelFrame, StringVar, Label, Button, GROOVE, END
+from tkinter import, Tk, LabelFrame, StringVar, Label, Button, GROOVE, END
 from tkinter.font import BOLD
 from tkinter import ttk
 import random
@@ -216,7 +216,8 @@ class BrainTrain:
 
     def verificar_sumas(self):
         """
-        Verifica si las sumas de las filas coinciden con los intentos y realiza las acciones correspondientes.
+        Verifica si las sumas de las filas coinciden con los intentos y realiza
+        las acciones correspondientes.
 
         Returns:
         None
@@ -229,7 +230,7 @@ class BrainTrain:
         intento_f1 = self.r1.get()
         intento_f2 = self.r2.get()
 
-        # Bantera, para saber si se logró dar con las 2 sumas.
+        # Bandera, para saber si se logró dar con las 2 sumas.
         condicones = 0
 
         try:
