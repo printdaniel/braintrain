@@ -259,6 +259,7 @@ class BrainTrain:
                 self.limpiar_entrys()
 
 # TODO: que se guarde únicamente si ambas sumas estan correctas
+# TODO: Arreglar la fecha de SQL
 if __name__ == '__main__':
     window = Tk()
     app = BrainTrain(window)
